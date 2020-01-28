@@ -1,0 +1,21 @@
+{
+  "name": "merge-deeply",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node example/example01.js"
+  },
+  "author": "Tom Misawa <riversun.org@gmail.com> (https://github.com/riversun)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riversun/merge-deeply.git"
+  },
+  "bugs": {
+    "url": "https://github.com/riversun/merge-deeply/issues"
+  },
+  "homepage": "https://github.com/riversun/merge-deeply#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}
