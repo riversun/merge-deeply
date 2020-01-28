@@ -12,6 +12,8 @@ npm install merge-deeply
 
 ## Example
 
+### Merge 2-Objects
+
 ```js
 const mergeDeeply = require('merge-deeply');
 
@@ -58,3 +60,4 @@ result=
   some: { someKey: 'someValue' } }
 
 ```
+

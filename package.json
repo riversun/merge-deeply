@@ -1,7 +1,7 @@
 {
   "name": "merge-deeply",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Deeply merge properties of two JS objects.",
   "main": "src/index.js",
   "scripts": {
     "start": "node example/example01.js"
