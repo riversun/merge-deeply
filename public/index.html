@@ -30,11 +30,11 @@
   };
 
   console.log = function(l) {
-    if(l==='\n'){
+    if (l === '\n') {
       document.write('<br>');
       return;
     }
-    document.write(l+'<br>');
+    document.write(l + '<br>');
   }
 
   console.log('target=');
@@ -49,6 +49,12 @@
 
   console.log('target + source =');
   console.log(JSON.stringify(result));
+  console.log('\n');
+  console.log('\n');
+  console.log('target = ' + JSON.stringify(a));
+  console.log('\n');
+  console.log('source = ' + JSON.stringify(b));
+  console.log('\n');
 
 </script>
 </body>
