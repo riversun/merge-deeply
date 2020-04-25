@@ -1,4 +1,4 @@
-function mergeDeeply(target, source, opts) {
+export default function mergeDeeply(target, source, opts) {
 
     const isObject = obj => obj && typeof obj === 'object' && !Array.isArray(obj);
     const isConcatArray = opts && opts.concatArray;
@@ -24,5 +24,3 @@ function mergeDeeply(target, source, opts) {
     }
     return result;
 }
-
-module.exports = mergeDeeply;

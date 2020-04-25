@@ -1,10 +1,13 @@
 {
   "name": "merge-deeply",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Deeply merge properties of two JS objects.",
-  "main": "src/index.js",
+  "main": "lib/merge-deeply.js",
   "scripts": {
-    "start": "node example/example01.js"
+    "start:node": "node example/example01.js",
+    "start": "webpack-dev-server --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
+    "release": "webpack --config webpack.config.js --mode production"
   },
   "author": "Tom Misawa <riversun.org@gmail.com> (https://github.com/riversun)",
   "license": "MIT",
@@ -16,6 +19,17 @@
     "url": "https://github.com/riversun/merge-deeply/issues"
   },
   "homepage": "https://github.com/riversun/merge-deeply#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.4.0",
+    "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
+    "jest": "^25.4.0",
+    "terser-webpack-plugin": "^2.3.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
   "dependencies": {}
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="merge-deeply.js"></script>
+<script>
+
+  const a = {
+    foo: 'myValue',
+    bar: {
+      barKey1: 'myValue1',
+      barKey2: 'myValue2'
+    },
+    myArray: [{ arrKey1: 'arrValue1' }, { arrKey2: 'arrValue2' }]
+
+  };
+
+  const b = {
+    foo: 'updatedMyValue',
+    bar: {
+      barKey1: 'updatedMyValue1',
+      barKey2: 'myValue2'
+    },
+    some: { someKey: 'someValue' },
+    myArray: [{ arrKey3: 'arrValue3' }, { arrKey4: 'arrValue4' }]
+
+  };
+
+  console.log = function(l) {
+    if(l==='\n'){
+      document.write('<br>');
+      return;
+    }
+    document.write(l+'<br>');
+  }
+
+  console.log('target=');
+  console.log(JSON.stringify(a));
+  console.log('\n');
+  console.log('source=');
+  console.log(JSON.stringify(b));
+  console.log('\n\n');
+
+
+  const result = mergeDeeply(a, b, { concatArray: true });
+
+  console.log('target + source =');
+  console.log(JSON.stringify(result));
+
+</script>
+</body>
+</html>
