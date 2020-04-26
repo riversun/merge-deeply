@@ -1,6 +1,12 @@
-# merge-deeply
+# merge-deeply 
 
-Deeply merge properties of two JS objects.
+## Allow you to Merge or Clone with prototypes
+
+- You can deep merge (deep copy) the properties of an object
+
+- An object with a prototype declaration can be cloned to include the prototype.
+
+- Objects that have prototype declarations, prototypes and properties that can be deep copied
 
 # Usage
 
@@ -10,9 +16,46 @@ Deeply merge properties of two JS objects.
 npm install merge-deeply
 ```
 
-## Example
+## Usage
 
-### Merge 2-Objects
+### Cloning an object that has a prototype declaration
+
+The following will execute a copy of the method declared as the prototype and a deep copy of all the properties.
+
+```js
+const mergeDeeply = require('merge-deeply');
+
+const clonedObject=mergeDeeply({op:'clone',object1:obj1});
+
+```
+
+### Merging 2 objects that has a prototype declaration
+
+The two objects will be merged and a new object will be created, as follows
+Of course the prototype is copied.
+
+```js
+const mergeDeeply = require('merge-deeply');
+
+const mergedObject=mergeDeeply({op:'merge',object1:obj1,object2:obj2});
+
+```
+
+### Copy(overwrite) properties into object
+
+The following merges obj1 with obj2's properties
+
+```js
+const mergeDeeply = require('merge-deeply');
+
+mergeDeeply({op:'overwrite-merge',object1:obj1,object2:obj2});
+
+```
+
+### Merging 2 "Properties only" Objects
+
+If the "concatArray" is true, 
+elements of the array are added at merge time
 
 ```js
 const mergeDeeply = require('merge-deeply');
@@ -39,7 +82,7 @@ const b = {
 };
 
 
-const result = mergeDeeply(a, b, {concatArray: true});
+const result = mergeDeeply({op:'merge',object1:a,object2:b, concatArray: true});
 console.log('result=');
 console.log(result);
 

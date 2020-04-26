@@ -1,7 +1,14 @@
 {
   "name": "merge-deeply",
   "version": "2.0.0",
-  "description": "Deeply merge properties of two JS objects.",
+  "description": "This library allows you to Merge and Clone Object with prototypes",
+  "keywords": [
+    "merge",
+    "clone",
+    "prototype",
+    "properties",
+    "object"
+  ],
   "main": "lib/merge-deeply.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js",
