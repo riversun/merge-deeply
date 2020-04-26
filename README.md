@@ -1,8 +1,9 @@
 # merge-deeply 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/76e6355ebb27472aaddcbdcc3dcce90c)](https://app.codacy.com/manual/riversun/merge-deeply?utm_source=github.com&utm_medium=referral&utm_content=riversun/merge-deeply&utm_campaign=Badge_Grade_Dashboard)
 [![npm version](https://badge.fury.io/js/merge-deeply.svg)](https://badge.fury.io/js/merge-deeply)
 [![CircleCI](https://circleci.com/gh/riversun/merge-deeply.svg?style=shield)](https://circleci.com/gh/riversun/merge-deeply)
 [![codecov](https://codecov.io/gh/riversun/merge-deeply/branch/master/graph/badge.svg)](https://codecov.io/gh/riversun/merge-deeply)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/76e6355ebb27472aaddcbdcc3dcce90c)](https://app.codacy.com/manual/riversun/merge-deeply?utm_source=github.com&utm_medium=referral&utm_content=riversun/merge-deeply&utm_campaign=Badge_Grade_Dashboard)
+
 ## Allow you to Merge or Clone with prototypes
 
 - You can deep merge (deep copy) the properties of an object
@@ -23,7 +24,7 @@ npm install merge-deeply
 ### Use on browser from CDN
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/merge-deeply@2.0.0/lib/merge-deeply.js">
+<script src="https://cdn.jsdelivr.net/npm/merge-deeply@2.0.1/lib/merge-deeply.js">
 ```
 
 ## Usage
