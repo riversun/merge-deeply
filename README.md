@@ -1,5 +1,6 @@
 # merge-deeply 
 [![npm version](https://badge.fury.io/js/merge-deeply.svg)](https://badge.fury.io/js/merge-deeply)
+[![CircleCI](https://circleci.com/gh/riversun/merge-deeply.svg?style=shield)](https://circleci.com/gh/riversun/merge-deeply)
 [![codecov](https://codecov.io/gh/riversun/merge-deeply/branch/master/graph/badge.svg)](https://codecov.io/gh/riversun/merge-deeply)
 ## Allow you to Merge or Clone with prototypes
 
