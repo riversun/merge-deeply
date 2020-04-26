@@ -1,4 +1,5 @@
 # merge-deeply 
+[![npm version](https://badge.fury.io/js/merge-deeply.svg)](https://badge.fury.io/js/merge-deeply)
 
 ## Allow you to Merge or Clone with prototypes
 
@@ -12,8 +13,15 @@
 
 ## Install
 
+### Use with NPM
 ```
 npm install merge-deeply
+```
+
+### Use on browser from CDN
+
+```
+<script src="https://cdn.jsdelivr.net/npm/merge-deeply@2.0.0/lib/merge-deeply.js">
 ```
 
 ## Usage
