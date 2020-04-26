@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
       disableHostCheck: true,
     },
     entry: {
-      'merge-deeply': ['./src/index.js'],
+      'merge-deeply': ['./src/merge-deeply.js'],
 
     },
     output: {
@@ -28,7 +28,7 @@ module.exports = (env, argv) => {
       library: 'mergeDeeply',
       libraryExport: 'default',
       libraryTarget: 'umd',
-      globalObject  : 'this',//for both browser and node.js
+      globalObject: 'this',//for both browser and node.js
       umdNamedDefine: true,
       auxiliaryComment: {
         root: 'for Root',
@@ -66,15 +66,15 @@ module.exports = (env, argv) => {
         {
           test: /\.scss$/,
           use: [
-            {loader: 'style-loader'},
-            {loader: 'css-loader'},
-            {loader: 'sass-loader'},
+            { loader: 'style-loader' },
+            { loader: 'css-loader' },
+            { loader: 'sass-loader' },
           ]
         },
         {
           test: /\.(png|jpg|gif)$/i,
           use: [
-            {loader: 'url-loader'},
+            { loader: 'url-loader' },
           ]
         },
       ],

@@ -29,6 +29,6 @@ console.log(b);
 console.log('\n\n');
 
 
-const result = mergeDeeply(a, b, { concatArray: true });
+const result = mergeDeeply({ op: 'merge', object1: a, object2: b, concatArray: true });
 console.log('target + source =');
 console.log(result);

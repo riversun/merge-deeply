@@ -37,6 +37,7 @@
     document.write(l + '<br>');
   }
 
+  console.log('********* merge only property objects ***********');
   console.log('target=');
   console.log(JSON.stringify(a));
   console.log('\n');
@@ -45,16 +46,77 @@
   console.log('\n\n');
 
 
-  const result = mergeDeeply(a, b, { concatArray: true });
+  const result = mergeDeeply({ op: 'merge', object1: a, object2: b, concatArray: true });
 
   console.log('target + source =');
   console.log(JSON.stringify(result));
   console.log('\n');
   console.log('\n');
-  console.log('target = ' + JSON.stringify(a));
+
+
+  console.log('********* clone Object with prototypes ***********');
+
+  function CTest() {
+    this.data1 = {
+      foo: 'myValue',
+      bar: {
+        barKey1: 'myValue1',
+        barKey2: 'myValue2'
+      },
+      myArray: [{ arrKey1: 'arrValue1' }, { arrKey2: 'arrValue2' }]
+
+    };
+
+    this.data2 = 'data2';
+
+    this.multi = function(a, b) {
+      return a * b;
+    }
+  }
+
+  CTest.prototype.add = function(a, b) {
+    return a + b;
+  };
+
+  CTest.prototype.sub = function(a, b) {
+    return a - b;
+  };
+
+  const srcObject = new CTest();
+
+  const clonedObject = mergeDeeply({ op: 'clone', object1: srcObject });
+
+  {
+  console.log('srcObject properties=');
+  const props = Object.getOwnPropertyDescriptors(srcObject);
+  for (const _prop in props) {
+    console.log(_prop);
+  }
+  console.log('srcObject prototypes=');
+  const prototypes = Object.getPrototypeOf(srcObject);
+  for (const _prototype in prototypes) {
+    console.log(_prototype);
+  }
+
   console.log('\n');
-  console.log('source = ' + JSON.stringify(b));
-  console.log('\n');
+  }
+
+
+  {
+
+    console.log('clonedObject properties=');
+    const props = Object.getOwnPropertyDescriptors(clonedObject);
+    for (const _prop in props) {
+      console.log(_prop);
+    }
+    console.log('clonedObject prototypes=');
+    const prototypes = Object.getPrototypeOf(clonedObject);
+    for (const _prototype in prototypes) {
+      console.log(_prototype);
+    }
+
+    console.log('\n');
+  }
 
 </script>
 </body>

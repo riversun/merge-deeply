@@ -1,11 +1,12 @@
 {
   "name": "merge-deeply",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Deeply merge properties of two JS objects.",
   "main": "lib/merge-deeply.js",
   "scripts": {
-    "start:node": "node example/example01.js",
     "start": "webpack-dev-server --config webpack.config.js",
+    "start:node": "node example/example01.js",
+    "test": "jest -i",
     "build": "webpack --config webpack.config.js",
     "release": "webpack --config webpack.config.js --mode production"
   },
