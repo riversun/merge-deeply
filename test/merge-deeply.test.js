@@ -153,6 +153,19 @@ describe('MergeDeeply', () => {
       }).toThrowError('not specified');
 
     });
+
+    test('Overwrite domElement properties in srcObject', (done) => {
+      const domElement = document.createElement('div');
+      domElement.addEventListener('click', (e) => {
+        done();
+      });
+      const obj1 = { domElement: domElement };
+      const obj2 = { data1: "data1" };
+      mergeDeeply({ op: 'overwrite-merge', object1: obj1, object2: obj2, concatArray: true });
+      expect(obj1.data1).toBe('data1');
+      obj1.domElement.click();
+
+    });
   });
 
   test('Clone prototypes and properties', () => {

@@ -13,7 +13,12 @@ function mergeDeeplyInernally(target, source, opts) {
   }
 
 
-  const result = Object.assign(assignToObject, target);
+  let result = null;
+  if (assignToObject === target) {
+    result = target;
+  } else {
+    result = Object.assign(assignToObject, target);
+  }
 
   if (isObject(target) && isObject(source)) {
     for (const [sourceKey, sourceValue] of Object.entries(source)) {
@@ -77,8 +82,7 @@ export default function mergeDeeply(opts) {
       assignToObject: prototypeClonedObject,
       concatArray: (opts && opts.concatArray),
     });
-
-  mergeDeeplyInernally(prototypeClonedObject, object2,
+  mergeDeeplyInernally(overwrite ? object1 : prototypeClonedObject, object2,
     {
       assignToObject: overwrite ? object1 : prototypeClonedObject,
       concatArray: (opts && opts.concatArray),
