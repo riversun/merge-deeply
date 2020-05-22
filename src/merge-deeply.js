@@ -62,6 +62,9 @@ export default function mergeDeeply(opts) {
     if (!(object1 && object2)) {
       throw Error('object1 or object2 is not specified.');
     }
+    if (Object.keys(object2).length === 0) {
+      return null;
+    }
   } else if (operation === 'clone') {
     object1 = opts.object1;
     object2 = {};

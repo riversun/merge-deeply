@@ -167,7 +167,18 @@ describe('MergeDeeply', () => {
 
     });
   });
+  test('Empty object', () => {
+    const obj1 = { "key": "value" };
+    const obj2 = {};
+    const result = mergeDeeply({ op: 'overwrite-merge', object1: obj1, object2: obj2 });
+    expect(result).toBeNull();
 
+    const obj3 = { "key2": "value2" };
+    const result2 = mergeDeeply({ op: 'overwrite-merge', object1: obj1, object2: obj3 });
+    expect(result2).not.toBeNull();
+
+  });
+  //obj1["key2"]=obj1;
   test('Clone prototypes and properties', () => {
     function CTest() {
       this.data1 = {
