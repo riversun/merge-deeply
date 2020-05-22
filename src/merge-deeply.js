@@ -1,3 +1,5 @@
+import hasOwnPrototype from './has-own-prototype';
+
 function mergeDeeplyInernally(target, source, opts) {
   const isObject = (obj) => obj && typeof obj === 'object' && !Array.isArray(obj);
   const isConcatArray = opts && opts.concatArray;
@@ -41,21 +43,23 @@ function mergeDeeplyInernally(target, source, opts) {
 export default function mergeDeeply(opts) {
   let object1 = null;
   let object2 = null;
-  let overwrite = false;
   const operation = opts.op;
   if (!operation) {
     throw Error('The initialization property "op" cannot be omitted. "merge","overwrite-merge","clone" can be specified.');
   }
 
-  if (operation === 'merge') {
+  const isMergeMode = operation === 'merge';
+  const isCloneMode = operation === 'clone';
+  const isOverwriteMode = operation === 'overwrite-merge';
+
+  if (isMergeMode) {
     object1 = opts.object1;
     object2 = opts.object2;
 
     if (!(object1 && object2)) {
       throw Error('object1 or object2 is not specified.');
     }
-  } else if (operation === 'overwrite-merge') {
-    overwrite = true;
+  } else if (isOverwriteMode) {
     object1 = opts.object1;
     object2 = opts.object2;
 
@@ -63,9 +67,10 @@ export default function mergeDeeply(opts) {
       throw Error('object1 or object2 is not specified.');
     }
     if (Object.keys(object2).length === 0) {
+      // try to overwrite empty object(=There's no point in trying.)
       return null;
     }
-  } else if (operation === 'clone') {
+  } else if (isCloneMode) {
     object1 = opts.object1;
     object2 = {};
   } else {
@@ -80,16 +85,26 @@ export default function mergeDeeply(opts) {
   // You can also do the following, but there is no point in doing it because the property will be a shallow copy.
   // const prototypeClonedObject = Object.create(Object.getPrototypeOf(object1),Object.getOwnPropertyDescriptors(object1) );
 
-  mergeDeeplyInernally(object1, object1,
+  let resultObject = null;
+
+  const object1HasCustomPrototype = hasOwnPrototype(object1);
+  if ((isMergeMode && object1HasCustomPrototype) || isCloneMode) {
+    // copy prototype
+    mergeDeeplyInernally(object1, object1,
+      {
+        assignToObject: prototypeClonedObject,
+        concatArray: (opts && opts.concatArray),
+      });
+    resultObject = prototypeClonedObject;
+  } else {
+    resultObject = {};
+  }
+
+  mergeDeeplyInernally(isCloneMode ? resultObject : object1, object2,
     {
-      assignToObject: prototypeClonedObject,
-      concatArray: (opts && opts.concatArray),
-    });
-  mergeDeeplyInernally(overwrite ? object1 : prototypeClonedObject, object2,
-    {
-      assignToObject: overwrite ? object1 : prototypeClonedObject,
+      assignToObject: isOverwriteMode ? object1 : resultObject,
       concatArray: (opts && opts.concatArray),
     });
 
-  return prototypeClonedObject;
+  return resultObject;
 }

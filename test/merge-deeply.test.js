@@ -1,10 +1,11 @@
 import mergeDeeply from '../src/merge-deeply';
+import hasOwnPrototype from "../src/has-own-prototype";
 
 
 describe('MergeDeeply', () => {
 
-  describe('aa()', () => {
-    test('normal yyyy/MM/dd HH:mm:ss', () => {
+  describe('default()', () => {
+    test('merge', () => {
       const a = {
         foo: 'myValue',
         bar: {
@@ -27,15 +28,95 @@ describe('MergeDeeply', () => {
 
       };
 
-
       const result = mergeDeeply({ op: 'merge', object1: a, object2: b, concatArray: true });
       expect(result.foo).toBe('updatedMyValue');
       expect(result.bar.barKey1).toBe('updatedMyValue1');
       expect(result.hoge).toBe('myHogeValue');
       expect(result.myArray.length).toBe(4);
 
+      expect(a.foo).toBe('myValue');
+      expect(a.bar.barKey1).toBe('myValue1');
+      expect(a.bar.barKey2).toBe('myValue2');
+      expect(a.hoge).toBe('myHogeValue');
+      expect(a.myArray[0].arrKey1).toBe('arrValue1');
+      expect(a.myArray[1].arrKey2).toBe('arrValue2');
+
+      expect(b.foo).toBe('updatedMyValue');
+      expect(b.bar.barKey1).toBe('updatedMyValue1');
+      expect(b.bar.barKey2).toBe('myValue2');
+      expect(b.hoge).toBeUndefined();
+      expect(b.some.someKey).toBe('someValue');
+      expect(b.myArray[0].arrKey3).toBe('arrValue3');
+    });
+    test('overwrite', () => {
+      const a = {
+        foo: 'myValue',
+        bar: {
+          barKey1: 'myValue1',
+          barKey2: 'myValue2'
+        },
+        hoge: 'myHogeValue',
+        myArray: [{ arrKey1: 'arrValue1' }, { arrKey2: 'arrValue2' }]
+
+      };
+
+      const b = {
+        foo: 'updatedMyValue',
+        bar: {
+          barKey1: 'updatedMyValue1',
+          barKey2: 'myValue2'
+        },
+        some: { someKey: 'someValue' },
+        myArray: [{ arrKey3: 'arrValue3' }, { arrKey4: 'arrValue4' }]
+
+      };
+
+      mergeDeeply({ op: 'overwrite-merge', object1: a, object2: b, concatArray: true });
+      expect(a.foo).toBe('updatedMyValue');
+      expect(a.bar.barKey1).toBe('updatedMyValue1');
+      expect(a.bar.barKey2).toBe('myValue2');
+      expect(a.hoge).toBe('myHogeValue');
+      expect(a.myArray[0].arrKey1).toBe('arrValue1');
+      expect(a.myArray[1].arrKey2).toBe('arrValue2');
+      expect(a.myArray[2].arrKey3).toBe('arrValue3');
+      expect(a.myArray[3].arrKey4).toBe('arrValue4');
+
+      expect(b.foo).toBe('updatedMyValue');
+      expect(b.bar.barKey1).toBe('updatedMyValue1');
+      expect(b.bar.barKey2).toBe('myValue2');
+      expect(b.hoge).toBeUndefined();
+      expect(b.some.someKey).toBe('someValue');
+      expect(b.myArray[0].arrKey3).toBe('arrValue3');
     });
 
+    test('clone', () => {
+      const a = {
+        foo: 'myValue',
+        bar: {
+          barKey1: 'myValue1',
+          barKey2: 'myValue2'
+        },
+        hoge: 'myHogeValue',
+        myArray: [{ arrKey1: 'arrValue1' }, { arrKey2: 'arrValue2' }]
+
+      };
+      const result = mergeDeeply({ op: 'clone', object1: a });
+      expect(a.foo).toBe('myValue');
+      expect(a.bar.barKey1).toBe('myValue1');
+      expect(a.bar.barKey2).toBe('myValue2');
+      expect(a.hoge).toBe('myHogeValue');
+      expect(a.myArray[0].arrKey1).toBe('arrValue1');
+      expect(a.myArray[1].arrKey2).toBe('arrValue2');
+
+      expect(result.foo).toBe('myValue');
+      expect(result.bar.barKey1).toBe('myValue1');
+      expect(result.bar.barKey2).toBe('myValue2');
+      expect(result.hoge).toBe('myHogeValue');
+      expect(result.myArray[0].arrKey1).toBe('arrValue1');
+      expect(result.myArray[1].arrKey2).toBe('arrValue2');
+      expect(a === result).toBe(false);
+
+    });
     test('Merge class-like-objects with prototypes to create a new object', () => {
       function CTest() {
         this.data1 = {
@@ -170,6 +251,33 @@ describe('MergeDeeply', () => {
   test('Empty object', () => {
     const obj1 = { "key": "value" };
     const obj2 = {};
+
+    function CTest() {
+      this.data1 = {
+        foo: 'myValue',
+        bar: {
+          barKey1: 'myValue1',
+          barKey2: 'myValue2'
+        },
+        myArray: [{ arrKey1: 'arrValue1' }, { arrKey2: 'arrValue2' }]
+
+      };
+
+      this.data2 = 'data2';
+
+      this.multi = function(a, b) {
+        return a * b;
+      }
+    }
+
+    CTest.prototype.add = function(a, b) {
+      return a + b;
+    };
+
+    CTest.prototype.sub = function(a, b) {
+      return a - b;
+    };
+
     const result = mergeDeeply({ op: 'overwrite-merge', object1: obj1, object2: obj2 });
     expect(result).toBeNull();
 
