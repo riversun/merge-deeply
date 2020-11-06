@@ -3,6 +3,7 @@ import hasOwnPrototype from './has-own-prototype';
 function mergeDeeplyInernally(target, source, opts) {
   const isObject = (obj) => obj && typeof obj === 'object' && !Array.isArray(obj);
   const isConcatArray = opts && opts.concatArray;
+  const isCloneMode = opts.isCloneMode;
 
   // assignToObject:
   // Overwrites the properties of the specified existing object
@@ -32,7 +33,16 @@ function mergeDeeplyInernally(target, source, opts) {
         // OLD: else if (isObject(sourceValue) && target.hasOwnProperty(sourceKey)) {
         result[sourceKey] = mergeDeeplyInernally(targetValue, sourceValue, opts);
       } else {
-        Object.assign(result, { [sourceKey]: sourceValue });
+        let _sourceValue = sourceValue;
+        if (isCloneMode && Array.isArray(sourceValue)) {
+          const _clonedArray = [];
+          for (const itemInSourceValue of sourceValue) {
+            const copy = JSON.parse(JSON.stringify(itemInSourceValue));
+            _clonedArray.push(copy);
+          }
+          _sourceValue = _clonedArray;
+        }
+        Object.assign(result, { [sourceKey]: _sourceValue });
       }
     }
   }
@@ -94,6 +104,7 @@ export default function mergeDeeply(opts) {
       {
         assignToObject: prototypeClonedObject,
         concatArray: (opts && opts.concatArray),
+        isCloneMode,
       });
     resultObject = prototypeClonedObject;
   } else {
